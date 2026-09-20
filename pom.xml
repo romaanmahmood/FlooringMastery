@@ -12,7 +12,6 @@
         <maven.compiler.source>26</maven.compiler.source>
         <maven.compiler.target>26</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.springframework-version>4.3.4.RELEASE</org.springframework-version>
     </properties>
 
     <dependencies>
@@ -25,8 +24,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>4.3.4.release</version>
-
+            <version>4.3.4.Release</version>
         </dependency>
     </dependencies>
 

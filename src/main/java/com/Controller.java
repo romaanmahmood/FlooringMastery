@@ -6,6 +6,7 @@ import com.DAOs.Models.Tax;
 import com.DAOs.OrderDAO;
 import com.DAOs.ProductDAO;
 import com.DAOs.TaxDAO;
+import com.Service.PersistenceException;
 import com.Service.Service;
 import com.View.View;
 import org.springframework.context.ApplicationContext;
@@ -27,11 +28,12 @@ public class Controller {
 
     }
 
+    //START HERE
     public void run() throws IOException {
 
         mainMenu();
 
-
+        // I don't know why I didn't just put the main menu here, but oh well
     }
 
 
@@ -56,17 +58,23 @@ public class Controller {
             else if (user == 5){
                 exportAllData();
             }
+            //The view object checks for invalid inputs
             else{
                 //Quit
                 run = false;
+                view.exitMessage();
             }
 
 
         }
     }
 
-    private void exportAllData() throws IOException {
-        service.export();
+    private void exportAllData() throws IOException, PersistenceException {
+        try {
+            service.export();
+        }catch (PersistenceException e){
+            view.print(e.getMessage());
+        }
     }
 
 
@@ -82,6 +90,7 @@ public class Controller {
 
     }
 
+    //This is run anytime a change is made (after confirming with the user)
     private void save() throws IOException {
         service.save();
         view.saveMessage();
@@ -109,7 +118,6 @@ public class Controller {
         Order newOrder = null;
         Order oldOrder = null;
         int orderNum = -1;
-
 
         oldOrder = getUserOrder();
         newOrder = new Order(oldOrder);
@@ -182,6 +190,8 @@ public class Controller {
 
         Order order = service.constructOrder(customerName, state, productType, area);
 
+        order.setOrderNumber(service.getNextOrderNumber());
+
         view.displayOrder(order);
 
         boolean conf = view.askForConfirm();
@@ -194,10 +204,11 @@ public class Controller {
 
 
 
-
+    //Forces the user to input a date in the future
     private void loadFutureDate() throws FileNotFoundException {
         service.loadOrders(view.getFutureDateInput());
     }
+
     private void loadDate() throws FileNotFoundException {
         service.loadOrders(view.getDateInput());
     }

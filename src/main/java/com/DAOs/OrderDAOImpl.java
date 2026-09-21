@@ -1,6 +1,7 @@
 package com.DAOs;
 
 import com.DAOs.Models.Order;
+import com.Service.PersistenceException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -80,21 +81,28 @@ public class OrderDAOImpl implements OrderDAO{
 
     @Override
     public void export() throws IOException {
-        File dir = new File("SampleFileData/Orders");
-        FileWriter toWrite = new FileWriter("SampleFileData/Backup/DataExport.txt");
-        for (File file : dir.listFiles()){
+        try {
 
-            //May include the ".txt"
-            String dateStr = file.getName().split("_")[1];
-            dateStr = dateStr.split("\\.")[0];
+            File dir = new File("SampleFileData/Orders");
+            FileWriter toWrite = new FileWriter("SampleFileData/Backup/DataExport.txt");
+            for (File file : dir.listFiles()) {
 
-            Scanner scan = new Scanner(file);
-            while (scan.hasNextLine()){
-                String line = scan.nextLine();
-                toWrite.write(line + "::" + dateStr + "\n");
+                //May include the ".txt"
+                String dateStr = file.getName().split("_")[1];
+                dateStr = dateStr.split("\\.")[0];
+
+                Scanner scan = new Scanner(file);
+                while (scan.hasNextLine()) {
+                    String line = scan.nextLine();
+                    toWrite.write(line + "::" + dateStr + "\n");
+                }
             }
+            toWrite.close();
+
         }
-        toWrite.close();
+        catch (IOException _){
+            throw new PersistenceException("Unable to save!");
+        }
     }
 
     private String dateToString(LocalDate date){
@@ -110,15 +118,13 @@ public class OrderDAOImpl implements OrderDAO{
         return dayStr + "-" +  monthStr + "-" + yearStr;
     }
 
+
     public void saveOrders() throws IOException {
-
-
 
         String fileName = "SampleFileData/Orders/Orders_" + dateToString(currentDateLoaded) + ".txt";
 
         File f = new File(fileName);
         f.delete();
-
 
 
         if (!orders.isEmpty()){

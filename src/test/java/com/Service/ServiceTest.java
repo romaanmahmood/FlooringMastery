@@ -34,6 +34,21 @@ class ServiceTest {
         assert(service.getOrder(sampleOrder.getOrderNumber()).equalTo(sampleOrder));
     }
 
+    @Test
+    public void loadOrderTest() throws FileNotFoundException {
+        service.loadOrders(LocalDate.parse("06/02/2013", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+        assert(!service.getOrders().isEmpty());
+    }
+
+    @Test
+    public void loadEmptyTest() throws FileNotFoundException{
+        service.loadOrders(LocalDate.parse("10/10/2999", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        assert(service.getOrders().isEmpty());
+    }
+
+
+
 
 
     public Order getSampleOrder() throws FileNotFoundException {

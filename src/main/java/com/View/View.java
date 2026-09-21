@@ -39,4 +39,8 @@ public interface View {
     public BigDecimal getAreaNotEmpty();
 
     public void saveMessage();
+
+    public void exitMessage();
+
+    public void print(String message);
 }

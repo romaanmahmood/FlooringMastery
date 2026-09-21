@@ -53,7 +53,7 @@ public class ServiceImpl implements Service{
     }
 
     @Override
-    public void export() throws IOException {
+    public void export() throws IOException, PersistenceException {
         orderDAO.export();
     }
 

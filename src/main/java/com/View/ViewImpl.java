@@ -120,7 +120,17 @@ public class ViewImpl implements View{
 
         products.forEach((p)->io.print(p.toString()));
 
+    }
 
+    @Override
+    public void exitMessage(){
+        io.print("Thank you for using this program!");
+        io.print("Exiting...");
+    }
+
+    @Override
+    public void print(String message) {
+        io.print(message);
     }
 
     @Override

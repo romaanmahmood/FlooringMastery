@@ -118,8 +118,10 @@ public class ViewImpl implements View{
     private void displayAllProducts(ArrayList<Product> products){
         io.print("Available Products: ");
 
+        //Lambda reduces code size
+        //Powerful with streams
+        //Good for filtering, finding max number, look into built-in functions
         products.forEach((p)->io.print(p.toString()));
-
     }
 
     @Override

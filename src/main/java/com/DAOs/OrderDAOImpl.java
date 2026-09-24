@@ -105,6 +105,7 @@ public class OrderDAOImpl implements OrderDAO{
         }
     }
 
+
     private String dateToString(LocalDate date){
         int day = date.getDayOfMonth();
         String dayStr = getStringFromInt(day);

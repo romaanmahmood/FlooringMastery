@@ -12,6 +12,8 @@ public class ConsoleIO implements UserIO{
     @Override
     public String readString() {
 
+        //Clears the buffer
+        //Try using next INT???
         return scan.nextLine();
 
     }

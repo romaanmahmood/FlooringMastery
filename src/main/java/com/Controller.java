@@ -117,9 +117,10 @@ public class Controller {
 
         Order newOrder = null;
         Order oldOrder = null;
-        int orderNum = -1;
+
 
         oldOrder = getUserOrder();
+        int orderNum = oldOrder.getOrderNumber();
         newOrder = new Order(oldOrder);
 
         newOrder = new Order(oldOrder);
